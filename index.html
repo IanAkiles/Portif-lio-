@@ -1,0 +1,1410 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IAN LAB — Ian Akiles</title>
+  <meta name="description" content="IAN LAB — Experimentos digitais, sistemas e projetos por Ian Akiles. Laboratório digital experimental de interfaces, sistemas e engenharia de software.">
+  
+  <!-- SEO & Open Graph -->
+  <meta property="og:title" content="IAN LAB — Ian Akiles">
+  <meta property="og:description" content="Experimentos digitais, sistemas e projetos por Ian Akiles. Laboratório digital autoral.">
+  <meta property="og:image" content="https://ianakiles.com.br/preview.png">
+  <meta property="og:url" content="https://ianakiles.com.br/">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://ianakiles.com.br/preview.png">
+  
+  <link rel="canonical" href="https://ianakiles.com.br/">
+  <link rel="icon" type="image/png" href="flavicon.png">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Folha de Estilos Principal -->
+  <link rel="stylesheet" href="assets/css/ian-lab.css">
+
+  <!-- Efeito de botão (Uiverse.io by Damithkumara) -->
+  <link rel="stylesheet" href="assets/css/uiverse-buttons.css">
+
+    <style>
+      .contact-terminal-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 620px));
+        gap: 24px;
+        margin-top: 40px;
+      }
+
+      .contact-terminal-panel {
+        min-width: 0;
+        background: var(--bg-sec);
+        border: 1px solid var(--gray-border);
+        padding: 32px;
+      }
+
+      .contact-gif-panel {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        padding: 0;
+        background: transparent;
+        border: 0;
+      }
+
+      .contact-gif-panel img {
+        width: 100%;
+        height: 100%;
+        min-height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      @media (max-width: 900px) {
+        .contact-terminal-grid {
+          grid-template-columns: minmax(0, 620px);
+        }
+
+        .contact-gif-panel {
+          min-height: 320px;
+        }
+      }
+    </style>
+</head>
+<body>
+
+  <!-- Camada CRT Sutil e Ruído Estático -->
+  <div class="crt-overlay" aria-hidden="true"></div>
+
+  <!-- Grid Técnico de Fundo -->
+  <div class="bg-grid-lines" aria-hidden="true"></div>
+
+  <!-- Linha Superior de Progresso de Rolagem -->
+  <div class="scroll-progress-line" id="scroll-progress-line" aria-hidden="true"></div>
+
+  <!-- Cursor Retículo Personalizado -->
+  <div class="custom-cursor" id="custom-cursor" aria-hidden="true"></div>
+  <div class="custom-cursor-ring" id="custom-cursor-ring" aria-hidden="true"></div>
+  <div class="custom-cursor-tag" id="custom-cursor-tag" aria-hidden="true"></div>
+
+  <!-- ── 00. Tela de Inicialização do Sistema (Boot) ───────────────── -->
+  <div class="boot-screen" id="boot-screen">
+    <div class="boot-terminal-box">
+      <div class="boot-title">INICIALIZAÇÃO DO SISTEMA</div>
+      <div class="boot-sub">IAN LAB v1.0 — INICIALIZANDO AMBIENTE</div>
+      <div class="boot-lines" id="boot-lines"></div>
+      <div class="boot-bar-track">
+        <div class="boot-bar-fill" id="boot-bar-fill"></div>
+      </div>
+      <button class="boot-skip-btn" id="boot-skip-btn">[CLIQUE PARA PULAR]</button>
+    </div>
+  </div>
+
+  <!-- ── Barra Superior do Sistema ─────────────────────────────────── -->
+  <header class="top-system-bar" id="main-header">
+    <a href="#hero" class="system-brand" data-cursor="[INÍCIO]">
+      <span class="system-logo">IAN<span>.LAB</span></span>
+      <span class="system-tag">// EXPERIMENTOS DIGITAIS</span>
+    </a>
+
+    <div class="system-telemetry-pill">
+      <span class="status-indicator">
+        <span class="status-dot"></span> SISTEMA: ONLINE
+      </span>
+      <span style="color: var(--gray-border-light);">|</span>
+      <span>EXP: 09</span>
+      <span style="color: var(--gray-border-light);">|</span>
+      <span>PROJ: 04</span>
+    </div>
+
+    <nav class="system-nav">
+      <ul class="nav-links-tech">
+        <li><a href="#about" data-cursor="[SOBRE]"><span>01</span>SOBRE</a></li>
+        <li><a href="#experiments" data-cursor="[VER]"><span>02</span>EXPERIMENTOS</a></li>
+        <li><a href="#failed" data-cursor="[FALHAS]"><span>03</span>FALHAS</a></li>
+        <li><a href="#notes" data-cursor="[LER]"><span>04</span>NOTAS</a></li>
+        <li><a href="#toolbox" data-cursor="[STACK]"><span>05</span>FERRAMENTAL</a></li>
+        <li><a href="#terminal" data-cursor="[TERMINAL]"><span>06</span>TERMINAL</a></li>
+        <li><a href="#contact" data-cursor="[CONTATO]"><span>07</span>CONTATO</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- ── Régua Lateral de Progresso ────────────────────────────────── -->
+  <aside class="side-progress-rail" aria-hidden="true">
+    <button class="rail-step active" data-target="hero" title="00 / INÍCIO">
+      <span>00</span><span class="rail-line"></span>
+    </button>
+    <button class="rail-step" data-target="about" title="01 / SOBRE">
+      <span>01</span><span class="rail-line"></span>
+    </button>
+    <button class="rail-step" data-target="experiments" title="02 / EXPERIMENTOS">
+      <span>02</span><span class="rail-line"></span>
+    </button>
+    <button class="rail-step" data-target="failed" title="03 / FALHAS">
+      <span>03</span><span class="rail-line"></span>
+    </button>
+    <button class="rail-step" data-target="notes" title="04 / NOTAS">
+      <span>04</span><span class="rail-line"></span>
+    </button>
+    <button class="rail-step" data-target="toolbox" title="05 / FERRAMENTAL">
+      <span>05</span><span class="rail-line"></span>
+    </button>
+    <button class="rail-step" data-target="terminal" title="06 / TERMINAL">
+      <span>06</span><span class="rail-line"></span>
+    </button>
+    <button class="rail-step" data-target="contact" title="07 / CONTATO">
+      <span>07</span><span class="rail-line"></span>
+    </button>
+    <div class="rail-pct" id="rail-pct">0%</div>
+  </aside>
+
+  <main id="lab-main">
+    
+    <!-- ── 01. SEÇÃO HERO ──────────────────────────────────────────── -->
+    <section class="hero-section" id="hero" style="position: relative; overflow: hidden;">
+
+      <!-- Efeito decorativo MagicRings (canvas, ancorado ao fundo da seção) -->
+      <div id="magic-rings-hero" style="width: 600px; height: 400px; max-width: 90vw; position: absolute; top: 50%; right: 0; transform: translateY(-50%); pointer-events: none; z-index: 0;" aria-hidden="true"></div>
+
+      <canvas class="hero-character-gif" id="hero-character-gif" aria-hidden="true"></canvas>
+
+      <div class="container-lab" style="position: relative; z-index: 1;">
+        
+        <div class="hero-meta-row">
+          <span class="label-tech">ID_LABORATÓRIO: 0x7E3</span>
+          <span class="mono accent-green" style="font-size:12px;">STATUS_DO_KERNEL: VERIFICADO</span>
+        </div>
+
+        <h1 class="hero-title-giant">
+          <span class="glitch-letter">I</span><span class="glitch-letter">A</span><span class="glitch-letter">N</span><br>
+          <span class="glitch-letter">L</span><span class="glitch-letter">A</span><span class="glitch-letter">B</span>
+        </h1>
+
+        <div class="hero-subtitle-row">
+          <div class="hero-subtitle">
+            EXPERIMENTOS DIGITAIS / SISTEMAS / PROJETOS
+          </div>
+          <div class="hero-author">
+            POR <strong>IAN AKILES</strong>
+          </div>
+        </div>
+
+        <div class="hero-telemetry-grid">
+          <div class="telemetry-cell">
+            <div class="telemetry-key">Status do Sistema</div>
+            <div class="telemetry-val accent">ONLINE</div>
+          </div>
+          <div class="telemetry-cell">
+            <div class="telemetry-key">Experimentos Ativos</div>
+            <div class="telemetry-val">09 UNIDADES</div>
+          </div>
+          <div class="telemetry-cell">
+            <div class="telemetry-key">Projetos em Produção</div>
+            <div class="telemetry-val">04 SISTEMAS</div>
+          </div>
+          <div class="telemetry-cell">
+            <div class="telemetry-key">Localização</div>
+            <div class="telemetry-val">DIGITAL</div>
+          </div>
+        </div>
+
+        <div class="hero-bottom-bar">
+          <a href="#about" class="scroll-indicator" data-cursor="[EXPLORAR]">
+            <span>ROLE PARA EXPLORAR</span>
+            <span class="scroll-arrow-anim">↓</span>
+          </a>
+          <span class="mono text-dim" style="font-size: 11px;">VERSÃO 1.0 // SEM TEMPLATES CORPORATIVOS</span>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── 02. SEÇÃO SOBRE / PERFIL DO USUÁRIO ─────────────────────── -->
+    <section class="section-lab" id="about">
+      <div class="container-lab">
+        
+        <div class="section-head-telemetry">
+          <span class="label-tech">MÓDULO 01 // REGISTRO</span>
+          <span class="mono text-dim" style="font-size: 11px;">ID_ENTIDADE: AKILES_IAN</span>
+        </div>
+
+        <h2 class="section-title-large">SOBRE / PERFIL_DO_USUÁRIO</h2>
+
+        <div class="about-grid">
+          <div class="about-narrative">
+            <p style="font-size: 24px; color: var(--text-main); line-height: 1.35; font-weight: 500;">
+              IAN AKILES — Desenvolvedor focado na construção de experiências digitais, sistemas e projetos experimentais.
+            </p>
+            <p>
+              Tenho interesse em desenvolvimento web, interfaces técnicas, arquitetura de sistemas e criação de experiências digitais que fogem do lugar-comum corporativo.
+            </p>
+            <p>
+              Acredito em código limpo, interfaces com alta densidade de informação e exploração prática: projetar, testar, estressar limites de usabilidade e iterar com velocidade e rigor.
+            </p>
+            <div style="margin-top: 32px;">
+              <a href="#experiments" class="btn-lab btn-lab-primary btn-uiverse" data-cursor="[EXPLORAR]" data-text="EXPLORAR EXPERIMENTOS ↓">EXPLORAR EXPERIMENTOS ↓</a>
+            </div>
+          </div>
+
+          <div class="system-registry-box">
+            <div class="registry-entry">
+              <span class="reg-label">DESENVOLVEDOR</span>
+              <span class="reg-value">Ian Akiles Gonçalves Vieira</span>
+            </div>
+            <div class="registry-entry">
+              <span class="reg-label">STATUS_DO_SISTEMA</span>
+              <span class="reg-value accent">DISPONÍVEL</span>
+            </div>
+            <div class="registry-entry">
+              <span class="reg-label">FOCO_PRINCIPAL</span>
+              <span class="reg-value">WEB / SISTEMAS / EXPERIMENTOS</span>
+            </div>
+            <div class="registry-entry">
+              <span class="reg-label">MODO_ATUAL</span>
+              <span class="reg-value accent">CONSTRUINDO</span>
+            </div>
+            <div class="registry-entry">
+              <span class="reg-label">METODOLOGIA</span>
+              <span class="reg-value">EMPIRISMO RADICAL</span>
+            </div>
+            <div class="registry-entry">
+              <span class="reg-label">AMBIENTE_EXECUÇÃO</span>
+              <span class="reg-value">NODE / REACT / NAVEGADOR / IPC</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── 03. SEÇÃO EXPERIMENTOS (Apresentação Vertical Contínua) ──── -->
+    <section class="section-lab" id="experiments">
+      <div class="container-lab">
+        
+        <div class="section-head-telemetry">
+          <span class="label-tech">MÓDULO 02 // EXPOSIÇÃO_PRINCIPAL</span>
+          <span class="mono text-dim" style="font-size: 11px;">TOTAL: 09 EXPERIMENTOS</span>
+        </div>
+
+        <h2 class="section-title-large">EXPERIMENTOS</h2>
+        <p class="mono text-muted" style="font-size: 14px; max-width: 580px; margin-bottom: 24px;">
+          Coisas que construí, testei, alterei e às vezes quebrei. Apresentação vertical contínua de sistemas reais e experimentos interativos.
+        </p>
+
+        <div class="experiments-wrapper">
+
+          <!-- EXPERIMENTO 001: SISBARBER -->
+          <article class="experiment-unit" id="exp-001">
+            <div class="experiment-top-row">
+              <span class="exp-number-tag">EXPERIMENTO_001</span>
+              <span class="exp-status-pill completed">CONCLUÍDO // SISTEMA</span>
+            </div>
+
+            <div class="exp-layout-grid">
+              <div class="exp-info-col">
+                <div>
+                  <h3 class="exp-title">SISBARBER</h3>
+                  <div class="exp-subtitle">// SISTEMA INTEGRADO DE GESTÃO PARA BARBEARIAS</div>
+                  <p class="exp-summary">
+                    Plataforma SaaS operacional e financeira voltada a negócios locais. Gerencia calendários dinâmicos de atendimento, dispara confirmações e entrega balanço contábil automático em tempo real, eliminando horas de anotações manuais.
+                  </p>
+
+                  <div class="exp-meta-block">
+                    <div class="exp-meta-label">STACK_TECNOLÓGICA:</div>
+                    <div class="exp-stack-tags">
+                      <span class="stack-tag">HTML5</span>
+                      <span class="stack-tag">CSS3</span>
+                      <span class="stack-tag">JAVASCRIPT</span>
+                      <span class="stack-tag">NODE.JS</span>
+                      <span class="stack-tag">SQL</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="exp-metrics-row">
+                    <div class="metric-node">
+                      <span class="metric-lbl">Economia</span>
+                      <span class="metric-val">-3.5h/sem</span>
+                    </div>
+                    <div class="metric-node">
+                      <span class="metric-lbl">Erros Agenda</span>
+                      <span class="metric-val">Zero</span>
+                    </div>
+                    <div class="metric-node">
+                      <span class="metric-lbl">Fechamento</span>
+                      <span class="metric-val">Tempo Real</span>
+                    </div>
+                  </div>
+
+                  <div class="exp-action-row">
+                    <a href="https://borgesbarber.netlify.app/" target="_blank" rel="noopener noreferrer" class="btn-lab btn-open-experiment" data-cursor="[ABRIR]">
+                      <span class="default-label">[ ABRIR PROJETO ]</span>
+                      <span class="hover-label">ABRIR EXPERIMENTO →</span>
+                    </a>
+                    <a href="blog/case-barberpro.html" class="case-link-tech" data-cursor="[CASO]">Ver bastidores técnicos →</a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Miniatura 001: Simulador Sisbarber -->
+              <div class="exp-preview-col">
+                <div class="preview-header-bar">
+                  <div class="preview-dots">
+                    <span class="preview-dot live"></span>
+                    <span class="preview-dot"></span>
+                    <span class="preview-dot"></span>
+                  </div>
+                  <span>SIMULADOR_SISBARBER // AO VIVO</span>
+                </div>
+                <div class="preview-stage-content">
+                  <div class="barber-sim-grid">
+                    <div class="barber-sim-slot booked" data-cursor="[SLOT]">
+                      <span>09:00 — João Silva (Corte + Barba)</span>
+                      <span class="slot-state mono accent-green">[RESERVADO]</span>
+                    </div>
+                    <div class="barber-sim-slot booked" data-cursor="[SLOT]">
+                      <span>10:30 — Pedro Lucas (Degradê)</span>
+                      <span class="slot-state mono accent-green">[RESERVADO]</span>
+                    </div>
+                    <div class="barber-sim-slot" data-cursor="[SLOT]">
+                      <span>14:00 — Horário Disponível</span>
+                      <span class="slot-state mono text-dim">[LIVRE]</span>
+                    </div>
+                    <div class="barber-sim-slot" data-cursor="[SLOT]">
+                      <span>15:30 — Horário Disponível</span>
+                      <span class="slot-state mono text-dim">[LIVRE]</span>
+                    </div>
+                  </div>
+                  <div class="mono text-dim" style="font-size: 10.5px; text-align: center; margin-top: 18px;">
+                    [CLIQUE EM UM SLOT LIVRE PARA TESTAR A RESERVA]
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- EXPERIMENTO 002: WORST VOLUME CONTROL EVER -->
+          <article class="experiment-unit" id="exp-002">
+            <div class="experiment-top-row">
+              <span class="exp-number-tag">EXPERIMENTO_002</span>
+              <span class="exp-status-pill experimental">EXPERIMENTAL // SO NATIVO</span>
+            </div>
+
+            <div class="exp-layout-grid">
+              <div class="exp-info-col">
+                <div>
+                  <h3 class="exp-title">WORST VOLUME CONTROL EVER</h3>
+                  <div class="exp-subtitle">// O PIOR CONTROLE DE VOLUME DO MUNDO (DE PROPÓSITO)</div>
+                  <p class="exp-summary">
+                    Aplicação desktop real construída em Electron, React e arquitetura de IPC segura que controla o áudio mestre do Windows através da API nativa win-audio. Subverte regras de UX criando desafios absurdos, físicas de fuga e comportamentos imprevisíveis para regular o som.
+                  </p>
+
+                  <div class="exp-meta-block">
+                    <div class="exp-meta-label">STACK_TECNOLÓGICA:</div>
+                    <div class="exp-stack-tags">
+                      <span class="stack-tag">ELECTRON</span>
+                      <span class="stack-tag">REACT</span>
+                      <span class="stack-tag">TYPESCRIPT</span>
+                      <span class="stack-tag">API WIN-AUDIO</span>
+                      <span class="stack-tag">ARQUITETURA IPC</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="exp-metrics-row">
+                    <div class="metric-node">
+                      <span class="metric-lbl">Frustração</span>
+                      <span class="metric-val">100%</span>
+                    </div>
+                    <div class="metric-node">
+                      <span class="metric-lbl">Latência IPC</span>
+                      <span class="metric-val">&lt;2ms</span>
+                    </div>
+                    <div class="metric-node">
+                      <span class="metric-lbl">Controle Real</span>
+                      <span class="metric-val">Windows OS</span>
+                    </div>
+                  </div>
+
+                  <div class="exp-action-row">
+                    <button class="btn-lab btn-open-experiment" onclick="document.getElementById('worst-vol-track').click()" data-cursor="[TESTAR]">
+                      <span class="default-label">[ TESTAR INTERAÇÃO ]</span>
+                      <span class="hover-label">ABRIR EXPERIMENTO →</span>
+                    </button>
+                    <span class="mono text-dim" style="font-size: 11px;">REPOSITÓRIO ELECTRON DESKTOP</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Miniatura 002: Simulador Caótico de Volume -->
+              <div class="exp-preview-col">
+                <div class="preview-header-bar">
+                  <div class="preview-dots">
+                    <span class="preview-dot live"></span>
+                    <span class="preview-dot"></span>
+                    <span class="preview-dot"></span>
+                  </div>
+                  <span>SIMULADOR_WIN_AUDIO // MOTOR_CAÓTICO</span>
+                </div>
+                <div class="preview-stage-content">
+                  <div class="worst-vol-container">
+                    <div class="mono text-dim" style="font-size: 11px;">VOLUME GERAL DO SISTEMA</div>
+                    <div class="vol-display-num" id="worst-vol-display">42%</div>
+                    
+                    <div class="worst-vol-track" id="worst-vol-track" title="Tente clicar para ajustar o volume">
+                      <div class="worst-vol-handle" id="worst-vol-handle"></div>
+                    </div>
+
+                    <div class="worst-vol-log" id="worst-vol-log">
+                      > CLIQUE NA BARRA PARA TENTAR REGULAR O VOLUME
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- EXPERIMENTO 003: ESCRITÓRIO VIRTUAL T.I -->
+          <article class="experiment-unit" id="exp-003">
+            <div class="experiment-top-row">
+              <span class="exp-number-tag">EXPERIMENTO_003</span>
+              <span class="exp-status-pill completed">OPERACIONAL // AGENTES DE IA</span>
+            </div>
+
+            <div class="exp-layout-grid">
+              <div class="exp-info-col">
+                <div>
+                  <h3 class="exp-title">ESCRITÓRIO VIRTUAL T.I</h3>
+                  <div class="exp-subtitle">// SISTEMA MULTIAGENTE AUTÔNOMO COM GOOGLE GEMINI</div>
+                  <p class="exp-summary">
+                    Orquestrador inteligente de múltiplos agentes autônomos que cooperam em tempo real via API do Gemini. Automatiza a avaliação de código, triagem por nível crítico e emissão de relatórios de certificação de turmas de tecnologia sem custos de API.
+                  </p>
+
+                  <div class="exp-meta-block">
+                    <div class="exp-meta-label">STACK_TECNOLÓGICA:</div>
+                    <div class="exp-stack-tags">
+                      <span class="stack-tag">API DO GEMINI</span>
+                      <span class="stack-tag">NODE.JS</span>
+                      <span class="stack-tag">SISTEMAS MULTIAGENTES</span>
+                      <span class="stack-tag">REST API</span>
+                      <span class="stack-tag">STREAMING DE LLM</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="exp-metrics-row">
+                    <div class="metric-node">
+                      <span class="metric-lbl">Orquestradores</span>
+                      <span class="metric-val">04 Agentes</span>
+                    </div>
+                    <div class="metric-node">
+                      <span class="metric-lbl">Monitoramento</span>
+                      <span class="metric-val">40 Alunos</span>
+                    </div>
+                    <div class="metric-node">
+                      <span class="metric-lbl">Custo API</span>
+                      <span class="metric-val">R$ 0,00</span>
+                    </div>
+                  </div>
+
+                  <div class="exp-action-row">
+                    <a href="https://multiagentsia.netlify.app/" target="_blank" rel="noopener noreferrer" class="btn-lab btn-open-experiment" data-cursor="[ABRIR]">
+                      <span class="default-label">[ ABRIR PROJETO ]</span>
+                      <span class="hover-label">ABRIR EXPERIMENTO →</span>
+                    </a>
+                    <a href="blog/arquiteturas-multiagentes.html" class="case-link-tech" data-cursor="[CASO]">Ver bastidores técnicos →</a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Miniatura 003: Stream de Multiagentes -->
+              <div class="exp-preview-col">
+                <div class="preview-header-bar">
+                  <div class="preview-dots">
+                    <span class="preview-dot live"></span>
+                    <span class="preview-dot"></span>
+                    <span class="preview-dot"></span>
+                  </div>
+                  <span>ORQUESTRADOR_GEMINI // TRANSMISSÃO</span>
+                </div>
+                <div class="preview-stage-content">
+                  <div class="multiagents-terminal" id="multiagents-log-lines">
+                    <div class="agent-log-line">
+                      <span class="agent-tag">[AGENTE_LÍDER]</span> Iniciando varredura operacional no repositório...
+                    </div>
+                    <div class="agent-log-line">
+                      <span class="agent-tag">[AGENTE_AVALIADOR]</span> Validando atividades e notas da turma de T.I...
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- EXPERIMENTO 004: TRILHA DA CARREIRA -->
+          <article class="experiment-unit" id="exp-004">
+            <div class="experiment-top-row">
+              <span class="exp-number-tag">EXPERIMENTO_004</span>
+              <span class="exp-status-pill completed">CONCLUÍDO // EDTECH</span>
+            </div>
+
+            <div class="exp-layout-grid">
+              <div class="exp-info-col">
+                <div>
+                  <h3 class="exp-title">TRILHA DA CARREIRA</h3>
+                  <div class="exp-subtitle">// PLATAFORMA INTERATIVA DE APRENDIZAGEM & MERCADO</div>
+                  <p class="exp-summary">
+                    Aplicação pedagógica interativa com 16 paradas cobrindo mercado de trabalho, computação, marketing, empreendedorismo e carreira. Conta com validação dinâmica de questões objetivas e dissertativas, desafios práticos, persistência no navegador e exportação de PDF de atividades via jsPDF em runtime.
+                  </p>
+
+                  <div class="exp-meta-block">
+                    <div class="exp-meta-label">STACK_TECNOLÓGICA:</div>
+                    <div class="exp-stack-tags">
+                      <span class="stack-tag">REACT 18</span>
+                      <span class="stack-tag">JAVASCRIPT</span>
+                      <span class="stack-tag">RUNTIME JSPDF</span>
+                      <span class="stack-tag">LOCALSTORAGE</span>
+                      <span class="stack-tag">OFFLINE FIRST</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="exp-metrics-row">
+                    <div class="metric-node">
+                      <span class="metric-lbl">Aulas</span>
+                      <span class="metric-val">16 Paradas</span>
+                    </div>
+                    <div class="metric-node">
+                      <span class="metric-lbl">Gerador PDF</span>
+                      <span class="metric-val">No Navegador</span>
+                    </div>
+                    <div class="metric-node">
+                      <span class="metric-lbl">Armazenamento</span>
+                      <span class="metric-val">Offline-first</span>
+                    </div>
+                  </div>
+
+                  <div class="exp-action-row">
+                    <a href="trilha-da-carreira.html" target="_blank" class="btn-lab btn-open-experiment" data-cursor="[EXECUTAR]">
+                      <span class="default-label">[ ABRIR PROJETO ]</span>
+                      <span class="hover-label">ABRIR EXPERIMENTO →</span>
+                    </a>
+                    <span class="mono text-dim" style="font-size: 11px;">16 AULAS & GERADOR DE PDF</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Miniatura 004: Roadmap da Trilha -->
+              <div class="exp-preview-col">
+                <div class="preview-header-bar">
+                  <div class="preview-dots">
+                    <span class="preview-dot live"></span>
+                    <span class="preview-dot"></span>
+                    <span class="preview-dot"></span>
+                  </div>
+                  <span>MOTOR_TRILHA_CARREIRA // PREVIEW</span>
+                </div>
+                <div class="preview-stage-content">
+                  <div class="trilha-sim-box">
+                    <div class="mono text-dim" style="font-size: 11px;">MAPA PROGRESSIVO DA TRILHA</div>
+                    <div class="trilha-trail-row">
+                      <div class="trilha-node-circle done">01</div>
+                      <div class="trilha-node-line done"></div>
+                      <div class="trilha-node-circle done">02</div>
+                      <div class="trilha-node-line done"></div>
+                      <div class="trilha-node-circle active">03</div>
+                      <div class="trilha-node-line"></div>
+                      <div class="trilha-node-circle">...</div>
+                      <div class="trilha-node-line"></div>
+                      <div class="trilha-node-circle">16</div>
+                    </div>
+                    <div class="mono text-muted" style="font-size: 12px; margin-top: 10px;">
+                      > Módulo Ativo: Sistemas e Tecnologias Empresariais<br>
+                      > Validação de questões V/F e Múltipla Escolha<br>
+                      > Exportador de relatório PDF integrado
+                    </div>
+                    <div style="margin-top: 8px;">
+                      <a href="trilha-da-carreira.html" target="_blank" class="btn-lab btn-uiverse" style="width: 100%; font-size: 11px; padding: 8px 12px;" data-cursor="[INICIAR]" data-text="INICIAR AULA NA TRILHA →">
+                        INICIAR AULA NA TRILHA →
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- EXPERIMENTO 005: CARLINO -->
+          <article class="experiment-unit" id="exp-005">
+            <div class="experiment-top-row">
+              <span class="exp-number-tag">EXPERIMENTO_005</span>
+              <span class="exp-status-pill completed">CONCLUÍDO // CRIATIVO</span>
+            </div>
+
+            <div class="exp-layout-grid">
+              <div class="exp-info-col">
+                <div>
+                  <h3 class="exp-title">CARLINO — NÓ CRIATIVO</h3>
+                  <div class="exp-subtitle">// PORTFÓLIO ULTRA-CRIATIVO PARA ILUSTRADOR PROFISSIONAL</div>
+                  <p class="exp-summary">
+                    Experiência visual construída para manter a identidade artística viva. Rompe com grids tradicionais de portfólio através de faixas dinâmicas de texto com aceleração interativa, layouts assimétricos e distorções visuais contínuas.
+                  </p>
+
+                  <div class="exp-meta-block">
+                    <div class="exp-meta-label">STACK_TECNOLÓGICA:</div>
+                    <div class="exp-stack-tags">
+                      <span class="stack-tag">NEXT.JS</span>
+                      <span class="stack-tag">THREE.JS</span>
+                      <span class="stack-tag">TAILWIND CSS</span>
+                      <span class="stack-tag">SHADERS CSS</span>
+                      <span class="stack-tag">MOTION GRAPHICS</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="exp-metrics-row">
+                    <div class="metric-node">
+                      <span class="metric-lbl">Adesão Visual</span>
+                      <span class="metric-val">100%</span>
+                    </div>
+                    <div class="metric-node">
+                      <span class="metric-lbl">Conversão</span>
+                      <span class="metric-val">5x</span>
+                    </div>
+                    <div class="metric-node">
+                      <span class="metric-lbl">Estilo</span>
+                      <span class="metric-val">Autoral</span>
+                    </div>
+                  </div>
+
+                  <div class="exp-action-row">
+                    <a href="https://carlino.netlify.app/" target="_blank" rel="noopener noreferrer" class="btn-lab btn-open-experiment" data-cursor="[ABRIR]">
+                      <span class="default-label">[ ABRIR PROJETO ]</span>
+                      <span class="hover-label">ABRIR EXPERIMENTO →</span>
+                    </a>
+                    <a href="blog/case-carlino.html" class="case-link-tech" data-cursor="[CASO]">Ver bastidores técnicos →</a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Miniatura 005: Carlino Marquee -->
+              <div class="exp-preview-col">
+                <div class="preview-header-bar">
+                  <div class="preview-dots">
+                    <span class="preview-dot live"></span>
+                    <span class="preview-dot"></span>
+                    <span class="preview-dot"></span>
+                  </div>
+                  <span>NÓ_MARQUEE_CARLINO // DINÂMICO</span>
+                </div>
+                <div class="preview-stage-content" style="justify-content: center;">
+                  <div class="carlino-sim-marquee">
+                    <div class="marquee-strip">
+                      ILUSTRADOR • CARTOON • TRABALHO ARTÍSTICO • CONCEITO • ILUSTRADOR • CARTOON •
+                    </div>
+                    <div class="marquee-strip reverse">
+                      MANAUS • NÓ CRIATIVO • ESTRATÉGIA • MANAUS • NÓ CRIATIVO • ESTRATÉGIA •
+                    </div>
+                  </div>
+                  <div class="mono text-dim" style="font-size: 10.5px; text-align: center; margin-top: 16px;">
+                    [PASSE O MOUSE SOBRE A FAIXA PARA ACELERAR]
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- EXPERIMENTO 006: QUÂNTICO ALFA -->
+          <article class="experiment-unit" id="exp-006">
+            <div class="experiment-top-row">
+              <span class="exp-number-tag">EXPERIMENTO_006</span>
+              <span class="exp-status-pill completed">OPERACIONAL // WEBGL</span>
+            </div>
+
+            <div class="exp-layout-grid">
+              <div class="exp-info-col">
+                <div>
+                  <h3 class="exp-title">QUÂNTICO ALFA</h3>
+                  <div class="exp-subtitle">// VISUALIZADOR 3D DE REDES NEURAIS ORBITAIS</div>
+                  <p class="exp-summary">
+                    Ambiente interativo tridimensional projetado em Three.js nativo para simulação e visualização de conexões e sinapses dinâmicas por meio de órbitas matemáticas e física vetorial estável a 60 FPS.
+                  </p>
+
+                  <div class="exp-meta-block">
+                    <div class="exp-meta-label">STACK_TECNOLÓGICA:</div>
+                    <div class="exp-stack-tags">
+                      <span class="stack-tag">THREE.JS</span>
+                      <span class="stack-tag">WEBGL</span>
+                      <span class="stack-tag">SHADERS GLSL</span>
+                      <span class="stack-tag">MATEMÁTICA VETORIAL</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="exp-metrics-row">
+                    <div class="metric-node">
+                      <span class="metric-lbl">Taxa de Quadros</span>
+                      <span class="metric-val">60 FPS</span>
+                    </div>
+                    <div class="metric-node">
+                      <span class="metric-lbl">Pipeline 3D</span>
+                      <span class="metric-val">Nativo</span>
+                    </div>
+                    <div class="metric-node">
+                      <span class="metric-lbl">Carregamento</span>
+                      <span class="metric-val">&lt;1.0s</span>
+                    </div>
+                  </div>
+
+                  <div class="exp-action-row">
+                    <a href="https://quanticoalfa.netlify.app/" target="_blank" rel="noopener noreferrer" class="btn-lab btn-open-experiment" data-cursor="[ABRIR]">
+                      <span class="default-label">[ ABRIR PROJETO ]</span>
+                      <span class="hover-label">ABRIR EXPERIMENTO →</span>
+                    </a>
+                    <a href="blog/case-quantico-alfa.html" class="case-link-tech" data-cursor="[CASO]">Ver bastidores técnicos →</a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Miniatura 006: WebGL Orbital Canvas -->
+              <div class="exp-preview-col">
+                <div class="preview-header-bar">
+                  <div class="preview-dots">
+                    <span class="preview-dot live"></span>
+                    <span class="preview-dot"></span>
+                    <span class="preview-dot"></span>
+                  </div>
+                  <span>CANVAS_REDE_ORBITAL // 60FPS</span>
+                </div>
+                <div class="preview-stage-content" style="padding: 0;">
+                  <canvas id="quantico-preview-canvas" class="quantico-canvas"></canvas>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- EXPERIMENTO 007: GERADOR DE QR CODE -->
+          <article class="experiment-unit" id="exp-007">
+            <div class="experiment-top-row">
+              <span class="exp-number-tag">EXPERIMENTO_007</span>
+              <span class="exp-status-pill completed">CONCLUÍDO // UTILITÁRIO</span>
+            </div>
+
+            <div class="exp-layout-grid">
+              <div class="exp-info-col">
+                <div>
+                  <h3 class="exp-title">GERADOR DE QR CODE</h3>
+                  <div class="exp-subtitle">// UTILITÁRIO VETORIAL DIRETO E SEM ANÚNCIOS</div>
+                  <p class="exp-summary">
+                    Ferramenta instantânea de codificação bidimensional livre de cadastros obrigatórios, cobranças ocultas ou anúncios invasivos. Foco absoluto em velocidade, exportação direta em PNG/SVG e zero fricção.
+                  </p>
+
+                  <div class="exp-meta-block">
+                    <div class="exp-meta-label">STACK_TECNOLÓGICA:</div>
+                    <div class="exp-stack-tags">
+                      <span class="stack-tag">JAVASCRIPT ES6</span>
+                      <span class="stack-tag">MATRIZ SVG</span>
+                      <span class="stack-tag">INTEGRAÇÃO DE API</span>
+                      <span class="stack-tag">UX DIRETA</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="exp-metrics-row">
+                    <div class="metric-node">
+                      <span class="metric-lbl">Passos</span>
+                      <span class="metric-val">01 Passo</span>
+                    </div>
+                    <div class="metric-node">
+                      <span class="metric-lbl">Rastreadores</span>
+                      <span class="metric-val">Zero</span>
+                    </div>
+                    <div class="metric-node">
+                      <span class="metric-lbl">Licença</span>
+                      <span class="metric-val">Livre</span>
+                    </div>
+                  </div>
+
+                  <div class="exp-action-row">
+                    <a href="https://geradorqrcode-byianakiles.netlify.app/" target="_blank" rel="noopener noreferrer" class="btn-lab btn-open-experiment" data-cursor="[ABRIR]">
+                      <span class="default-label">[ ABRIR PROJETO ]</span>
+                      <span class="hover-label">ABRIR EXPERIMENTO →</span>
+                    </a>
+                    <a href="blog/case-qrcode.html" class="case-link-tech" data-cursor="[CASO]">Ver bastidores técnicos →</a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Miniatura 007: Gerador de QR Code -->
+              <div class="exp-preview-col">
+                <div class="preview-header-bar">
+                  <div class="preview-dots">
+                    <span class="preview-dot live"></span>
+                    <span class="preview-dot"></span>
+                    <span class="preview-dot"></span>
+                  </div>
+                  <span>RENDERIZADOR_VETORIAL_QR // AO VIVO</span>
+                </div>
+                <div class="preview-stage-content">
+                  <div class="qr-sim-container">
+                    <input type="text" id="qr-input-live" class="qr-sim-input" value="https://ianakiles.com.br" placeholder="Digite link ou texto...">
+                    <div class="qr-preview-img-box">
+                      <img id="qr-img-live" src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=https://ianakiles.com.br" alt="QR Code">
+                    </div>
+                    <div class="mono text-dim" style="font-size: 10.5px;">[DIGITE ACIMA PARA MODIFICAR EM TEMPO REAL]</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- EXPERIMENTO 008: RETRO PIXEL STUDIO PRO -->
+          <article class="experiment-unit" id="exp-008">
+            <div class="experiment-top-row">
+              <span class="exp-number-tag">EXPERIMENTO_008</span>
+              <span class="exp-status-pill completed">OPERACIONAL // PIXEL ART</span>
+            </div>
+
+            <div class="exp-layout-grid">
+              <div class="exp-info-col">
+                <div>
+                  <h3 class="exp-title">RETRO PIXEL STUDIO PRO</h3>
+                  <div class="exp-subtitle">// EDITOR DE PIXEL ART, ANIMACAO E EXPORTACAO GIF</div>
+                  <p class="exp-summary">
+                    Ferramenta criativa no navegador para desenho em pixel art com fluxo profissional de frames, camadas, paletas classicas e exportacao de imagem ou GIF animado. Une controles precisos de canvas, atalhos de produtividade e uma interface retro focada em criacao rapida.
+                  </p>
+
+                  <div class="exp-meta-block">
+                    <div class="exp-meta-label">STACK_TECNOLOGICA:</div>
+                    <div class="exp-stack-tags">
+                      <span class="stack-tag">JAVASCRIPT</span>
+                      <span class="stack-tag">CANVAS API</span>
+                      <span class="stack-tag">GIF EXPORT</span>
+                      <span class="stack-tag">LOCALSTORAGE</span>
+                      <span class="stack-tag">PIXEL TOOLS</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="exp-metrics-row">
+                    <div class="metric-node">
+                      <span class="metric-lbl">Canvas</span>
+                      <span class="metric-val">8x8-128x128</span>
+                    </div>
+                    <div class="metric-node">
+                      <span class="metric-lbl">Animacao</span>
+                      <span class="metric-val">1-24 FPS</span>
+                    </div>
+                    <div class="metric-node">
+                      <span class="metric-lbl">Exportacao</span>
+                      <span class="metric-val">PNG/GIF</span>
+                    </div>
+                  </div>
+
+                  <div class="exp-action-row">
+                    <a href="https://retrostudiobyakiles.netlify.app/" target="_blank" rel="noopener noreferrer" class="btn-lab btn-open-experiment" data-cursor="[ABRIR]">
+                      <span class="default-label">[ ABRIR PROJETO ]</span>
+                      <span class="hover-label">ABRIR EXPERIMENTO &rarr;</span>
+                    </a>
+                    <span class="mono text-dim" style="font-size: 11px;">EDITOR PIXEL ART & ANIMACAO</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Miniatura 008: Retro Pixel Studio -->
+              <div class="exp-preview-col">
+                <div class="preview-header-bar">
+                  <div class="preview-dots">
+                    <span class="preview-dot live"></span>
+                    <span class="preview-dot"></span>
+                    <span class="preview-dot"></span>
+                  </div>
+                  <span>RETRO_PIXEL_CANVAS // FRAME_001</span>
+                </div>
+                <div class="preview-stage-content">
+                  <div class="retro-pixel-preview">
+                    <div class="retro-pixel-toolbar">
+                      <span class="retro-tool active">PEN</span>
+                      <span class="retro-tool">ERASE</span>
+                      <span class="retro-tool">FILL</span>
+                      <span class="retro-tool">GIF</span>
+                    </div>
+                    <div class="retro-pixel-board" aria-hidden="true">
+                      <span></span><span></span><span class="p-green"></span><span class="p-green"></span><span></span><span></span><span class="p-cyan"></span><span></span>
+                      <span></span><span class="p-green"></span><span class="p-bright"></span><span class="p-green"></span><span></span><span class="p-cyan"></span><span class="p-cyan"></span><span></span>
+                      <span class="p-magenta"></span><span></span><span class="p-green"></span><span></span><span class="p-yellow"></span><span></span><span class="p-cyan"></span><span></span>
+                      <span class="p-magenta"></span><span class="p-magenta"></span><span></span><span class="p-yellow"></span><span class="p-yellow"></span><span class="p-yellow"></span><span></span><span></span>
+                      <span></span><span class="p-magenta"></span><span></span><span></span><span class="p-yellow"></span><span></span><span class="p-blue"></span><span class="p-blue"></span>
+                      <span></span><span></span><span class="p-red"></span><span class="p-red"></span><span></span><span class="p-blue"></span><span class="p-blue"></span><span></span>
+                      <span class="p-red"></span><span class="p-red"></span><span class="p-orange"></span><span></span><span></span><span></span><span class="p-blue"></span><span></span>
+                      <span></span><span class="p-orange"></span><span class="p-orange"></span><span class="p-orange"></span><span></span><span></span><span></span><span></span>
+                    </div>
+                    <div class="retro-pixel-footer">
+                      <span>FPS: 12</span>
+                      <span>CAMADAS: 03</span>
+                      <span>LOOP: ON</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- EXPERIMENTO 009: SINGULARIDADE ESTAVEL -->
+          <article class="experiment-unit" id="exp-009">
+            <div class="experiment-top-row">
+              <span class="exp-number-tag">EXPERIMENTO_009</span>
+              <span class="exp-status-pill completed">OPERACIONAL // SIMULACAO COSMICA</span>
+            </div>
+
+            <div class="exp-layout-grid">
+              <div class="exp-info-col">
+                <div>
+                  <h3 class="exp-title">SINGULARIDADE ESTAVEL</h3>
+                  <div class="exp-subtitle">// EXPERIMENTO VISUAL DE TOPOLOGIA, LENTE E RELATIVIDADE</div>
+                  <p class="exp-summary">
+                    Interface experimental que transforma dados de singularidade em experiencia visual de alta densidade. Explora massa, lente gravitacional, velocidade relativistica e radiacao detectavel em uma composicao tecnica inspirada em fisica orbital.
+                  </p>
+
+                  <div class="exp-meta-block">
+                    <div class="exp-meta-label">STACK_TECNOLOGICA:</div>
+                    <div class="exp-stack-tags">
+                      <span class="stack-tag">HTML5</span>
+                      <span class="stack-tag">CSS3</span>
+                      <span class="stack-tag">JAVASCRIPT</span>
+                      <span class="stack-tag">CANVAS</span>
+                      <span class="stack-tag">MOTION UI</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="exp-metrics-row">
+                    <div class="metric-node">
+                      <span class="metric-lbl">Massa</span>
+                      <span class="metric-val">4.2M SOL</span>
+                    </div>
+                    <div class="metric-node">
+                      <span class="metric-lbl">Lente</span>
+                      <span class="metric-val">Schwarzschild</span>
+                    </div>
+                    <div class="metric-node">
+                      <span class="metric-lbl">Relatividade</span>
+                      <span class="metric-val">0.45c</span>
+                    </div>
+                  </div>
+
+                  <div class="exp-action-row">
+                    <a href="https://vidasingularidade.netlify.app/" target="_blank" rel="noopener noreferrer" class="btn-lab btn-open-experiment" data-cursor="[ABRIR]">
+                      <span class="default-label">[ ABRIR PROJETO ]</span>
+                      <span class="hover-label">ABRIR EXPERIMENTO &rarr;</span>
+                    </a>
+                    <span class="mono text-dim" style="font-size: 11px;">TOPOLOGIA NOMINAL & RADIACAO ON</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Miniatura 009: Singularidade Estavel -->
+              <div class="exp-preview-col">
+                <div class="preview-header-bar">
+                  <div class="preview-dots">
+                    <span class="preview-dot live"></span>
+                    <span class="preview-dot"></span>
+                    <span class="preview-dot"></span>
+                  </div>
+                  <span>SINGULARITY_CORE // SCHWARZSCHILD</span>
+                </div>
+                <div class="preview-stage-content">
+                  <div class="singularity-preview">
+                    <div class="singularity-field" aria-hidden="true">
+                      <span class="singularity-orbit orbit-a"></span>
+                      <span class="singularity-orbit orbit-b"></span>
+                      <span class="singularity-orbit orbit-c"></span>
+                      <span class="singularity-core"></span>
+                      <span class="singularity-ray ray-a"></span>
+                      <span class="singularity-ray ray-b"></span>
+                    </div>
+                    <div class="singularity-readout">
+                      <div><span>TOPOLOGIA</span><strong>NOMINAL</strong></div>
+                      <div><span>INDICE_MASSA</span><strong>4.2M SOL</strong></div>
+                      <div><span>RADIACAO</span><strong>DETECTION ON</strong></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── 04. EXPERIMENTOS DESCONTINUADOS (FALHAS) ────────────────── -->
+    <section class="section-lab failed-section" id="failed">
+      <div class="container-lab">
+        
+        <div class="section-head-telemetry">
+          <span class="label-tech">MÓDULO 03 // NÓS_DESATIVADOS</span>
+          <span class="mono text-dim" style="font-size: 11px;">REGISTROS_POST_MORTEM</span>
+        </div>
+
+        <h2 class="section-title-large">EXPERIMENTOS DESCONTINUADOS</h2>
+        <p class="mono text-muted" style="font-size: 14px; max-width: 640px;">
+          NEM TUDO PRECISA SER LANÇADO. Nem todo experimento termina como produto. O aprendizado técnico mais denso acontece nas falhas e limites estressados.
+        </p>
+
+        <div class="failed-grid">
+          <div class="failed-card">
+            <div class="failed-header">
+              <span class="failed-code">// ERR_042</span>
+              <span class="failed-badge">ARQUIVADO</span>
+            </div>
+            <h3 class="failed-title">Física Densa em Canvas 2D</h3>
+            <p class="failed-log">
+              Cálculo de colisão elástica O(N²) para 1.500 corpos rígidos rodando diretamente na thread principal do navegador. Consumo de CPU excedeu 85% em celulares de entrada.
+            </p>
+            <div class="failed-learned">
+              <strong>Aprendizado:</strong> Cálculos físicos densos devem ser isolados em Web Workers ou transferidos para compute shaders em WebGL.
+            </div>
+          </div>
+
+          <div class="failed-card">
+            <div class="failed-header">
+              <span class="failed-code">// ERR_088</span>
+              <span class="failed-badge">ABANDONADO</span>
+            </div>
+            <h3 class="failed-title">Loop Autônomo Sem Limitador</h3>
+            <p class="failed-log">
+              Pipeline de autocorreção recursiva entre agentes sem limitação determinística de paradas. Resultou em consumo disparado de 40 chamadas consecutivas de API em reflexão redundante.
+            </p>
+            <div class="failed-learned">
+              <strong>Aprendizado:</strong> Toda orquestração de IA necessita de circuit breakers estritos e checagem de estado determinística.
+            </div>
+          </div>
+
+          <div class="failed-card">
+            <div class="failed-header">
+              <span class="failed-code">// ERR_119</span>
+              <span class="failed-badge">RECONSTRUINDO</span>
+            </div>
+            <h3 class="failed-title">Shader Volumétrico Raw GLSL</h3>
+            <p class="failed-log">
+              Shader volumétrico complexo que quebrava em placas gráficas integradas antigas por falta de suporte à precisão uniforme float.
+            </p>
+            <div class="failed-learned">
+              <strong>Aprendizado:</strong> Detectar capacidades de hardware na inicialização e fornecer fallback gracioso para renderização 2D.
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── 05. NOTAS DE LABORATÓRIO ────────────────────────────────── -->
+    <section class="section-lab" id="notes">
+      <div class="container-lab">
+        
+        <div class="section-head-telemetry">
+          <span class="label-tech">MÓDULO 04 // NOTAS_DE_ENGENHARIA</span>
+          <span class="mono text-dim" style="font-size: 11px;">OBSERVAÇÕES_DIRETAS</span>
+        </div>
+
+        <h2 class="section-title-large">NOTAS DE LABORATÓRIO</h2>
+        <p class="mono text-muted" style="font-size: 14px; max-width: 580px;">
+          O que aprendi enquanto construía. Registros técnicos diretos e humanos sobre design, sistemas e programação.
+        </p>
+
+        <div class="notes-grid">
+          <div class="note-card">
+            <div>
+              <div class="note-meta">
+                <span>NOTA_001</span>
+                <span>04.09.2026</span>
+              </div>
+              <div class="note-quote">
+                "Às vezes, a melhor interface é aquela que sai do caminho."
+              </div>
+              <p class="note-body">
+                Interfaces técnicas autênticas não precisam de enfeites ou animações de três segundos para parecerem inteligentes. Densidade de informação com hierarquia tipográfica precisa quase sempre supera o minimalismo corporativo vazio.
+              </p>
+            </div>
+          </div>
+
+          <div class="note-card">
+            <div>
+              <div class="note-meta">
+                <span>NOTA_002</span>
+                <span>18.08.2026</span>
+              </div>
+              <div class="note-quote">
+                "Fronteiras determinísticas salvam softwares de múltiplos processos."
+              </div>
+              <p class="note-body">
+                Ao construir o Worst Volume Control conectando o processo principal do Electron à API nativa do Windows, ficou evidente que dessincronias de milissegundos quebram a ilusão da interface. Arquitetura orientada a eventos unidirecionais é insubstituível.
+              </p>
+            </div>
+          </div>
+
+          <div class="note-card">
+            <div>
+              <div class="note-meta">
+                <span>NOTA_003</span>
+                <span>02.07.2026</span>
+              </div>
+              <div class="note-quote">
+                "Pipelines multiagentes quebram na fronteira determinística do parser, não no modelo."
+              </div>
+              <p class="note-body">
+                O gargalo de arquiteturas com múltiplos modelos cooperativos quase nunca é a capacidade do modelo em raciocinar, mas sim a rigidez do contrato de dados entre os nós. Esquemas estritos e tipagem forte são indispensáveis.
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── 06. FERRAMENTAL TÉCNICO (TOOLBOX) ────────────────────────── -->
+    <section class="section-lab" id="toolbox">
+      <div class="container-lab">
+        
+        <div class="section-head-telemetry">
+          <span class="label-tech">MÓDULO 05 // STACK_DO_SISTEMA</span>
+          <span class="mono text-dim" style="font-size: 11px;">MATRIZ_DE_COMPETÊNCIAS</span>
+        </div>
+
+        <h2 class="section-title-large">FERRAMENTAL TÉCNICO</h2>
+        <p class="mono text-muted" style="font-size: 14px; max-width: 580px;">
+          Tecnologias agrupadas por camada operacional. Sem gráficos de barra ou porcentagens de habilidade fictícias.
+        </p>
+
+        <div class="toolbox-grid">
+          <div class="toolbox-panel">
+            <div class="toolbox-panel-header">
+              <span class="toolbox-cat-name">FRONTEND</span>
+              <span class="toolbox-badge">CAMADA_CLIENTE</span>
+            </div>
+            <ul class="toolbox-items-list">
+              <li class="toolbox-item-node"><span>HTML5 & Marcação Semântica</span></li>
+              <li class="toolbox-item-node"><span>CSS3 & Variáveis Customizadas</span></li>
+              <li class="toolbox-item-node"><span>JavaScript (ES6+)</span></li>
+              <li class="toolbox-item-node"><span>TypeScript</span></li>
+              <li class="toolbox-item-node"><span>React 18</span></li>
+              <li class="toolbox-item-node"><span>Next.js</span></li>
+              <li class="toolbox-item-node"><a href="https://threejs.org/" target="_blank" rel="noopener noreferrer" class="toolbox-item-link" data-cursor="[VISITAR]">Three.js & WebGL</a></li>
+            </ul>
+          </div>
+
+          <div class="toolbox-panel">
+            <div class="toolbox-panel-header">
+              <span class="toolbox-cat-name">BACKEND</span>
+              <span class="toolbox-badge">MOTOR_DE_EXECUÇÃO</span>
+            </div>
+            <ul class="toolbox-items-list">
+              <li class="toolbox-item-node"><span>Node.js</span></li>
+              <li class="toolbox-item-node"><span>Express</span></li>
+              <li class="toolbox-item-node"><span>Fastify</span></li>
+              <li class="toolbox-item-node"><span>Arquitetura RESTful</span></li>
+              <li class="toolbox-item-node"><span>Processo Principal Electron</span></li>
+              <li class="toolbox-item-node"><span>Arquitetura IPC</span></li>
+            </ul>
+          </div>
+
+          <div class="toolbox-panel">
+            <div class="toolbox-panel-header">
+              <span class="toolbox-cat-name">BANCO DE DADOS</span>
+              <span class="toolbox-badge">CAMADA_DE_DADOS</span>
+            </div>
+            <ul class="toolbox-items-list">
+              <li class="toolbox-item-node"><span>Modelagem SQL</span></li>
+              <li class="toolbox-item-node"><span>PostgreSQL</span></li>
+              <li class="toolbox-item-node"><span>SQLite</span></li>
+              <li class="toolbox-item-node"><span>LocalStorage & IndexedDB</span></li>
+              <li class="toolbox-item-node"><span>Cache Offline-First</span></li>
+            </ul>
+          </div>
+
+          <div class="toolbox-panel">
+            <div class="toolbox-panel-header">
+              <span class="toolbox-cat-name">FERRAMENTAS & IA</span>
+              <span class="toolbox-badge">PIPELINE_DE_PRODUÇÃO</span>
+            </div>
+            <ul class="toolbox-items-list">
+              <li class="toolbox-item-node"><span>Fluxo Git & GitHub</span></li>
+              <li class="toolbox-item-node"><span>API do Google Gemini</span></li>
+              <li class="toolbox-item-node"><span>VS Code Otimizado</span></li>
+              <li class="toolbox-item-node"><span>Deploy na Netlify & Vercel</span></li>
+              <li class="toolbox-item-node"><span>Terminal PowerShell & Bash</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- SUBSEÇÃO CONSTRUINDO NO MOMENTO -->
+        <div class="building-card">
+          <div class="building-title">// CONSTRUINDO NO MOMENTO...</div>
+          <div class="building-bar-ascii">██████████████░░░░░░ 70%</div>
+          <p class="building-desc">
+            Desenvolvendo novos módulos experimentais de interfaces físicas reativas e orquestração determinística de agentes. Sistema em compilação contínua.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── 07. INTERAÇÃO COM O TERMINAL ────────────────────────────── -->
+    <section class="section-lab" id="terminal">
+      <div class="container-lab">
+        
+        <div class="section-head-telemetry">
+          <span class="label-tech">MÓDULO 06 // INTERFACE_CLI</span>
+          <span class="mono text-dim" style="font-size: 11px;">PORTA: 3000 // TTY1</span>
+        </div>
+
+        <h2 class="section-title-large">INTERAÇÃO COM O TERMINAL</h2>
+        <p class="mono text-muted" style="font-size: 14px; max-width: 580px;">
+          Console interativo do laboratório. Digite comandos como <strong style="color:var(--green-main)">ajuda</strong>, <strong style="color:var(--green-main)">sobre</strong>, <strong style="color:var(--green-main)">projetos</strong>, <strong style="color:var(--green-main)">trilha</strong> ou <strong style="color:var(--green-main)">habilidades</strong> para explorar via terminal.
+        </p>
+
+        <div class="terminal-wrapper" id="terminal-wrapper">
+          <div class="terminal-header">
+            <span>IAN@LAB: ~ (sandbox bash)</span>
+            <span>UTF-8 // PRONTO</span>
+          </div>
+          <div class="terminal-body" id="term-body">
+            <div class="term-welcome">
+              IAN LAB SO v1.0 (x86_64-digital)<br>
+              Digite <strong style="color:var(--green-main)">ajuda</strong> para listar todos os comandos do sistema.
+            </div>
+            <div class="term-history" id="term-history"></div>
+            <div class="term-input-row">
+              <span class="term-prompt">IAN@LAB:~$</span>
+              <input type="text" id="term-input" class="term-input" autocomplete="off" spellcheck="false" placeholder="digite um comando..." aria-label="Entrada de Comando no Terminal">
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── 08. FIM DO EXPERIMENTO / CONTATO ────────────────────────── -->
+    <section class="section-lab contact-section" id="contact">
+      <div class="container-lab">
+        
+        <div class="section-head-telemetry">
+          <span class="label-tech">MÓDULO 07 // DESCONEXÃO_DO_SISTEMA</span>
+          <span class="mono text-dim" style="font-size: 11px;">SINAIS_ATIVOS</span>
+        </div>
+
+        <h2 class="end-title-huge">
+          FIM DO EXPERIMENTO.<br>
+          <span>SISTEMA CONTINUA ONLINE.</span>
+        </h2>
+
+        <p class="mono text-muted" style="font-size: 15px; max-width: 620px; line-height: 1.7;">
+          Se você tem um projeto experimental, sistema complexo ou produto digital desafiador para tirar do papel, entre em contato direto pelo canal de sua preferência.
+        </p>
+
+        <div class="contact-channels-grid">
+          <a href="https://github.com/IanAkiles" target="_blank" rel="noopener noreferrer" class="contact-chip-link" data-cursor="[GITHUB]">
+            <span>[ GITHUB ]</span>
+            <span class="mono text-dim">@IanAkiles</span>
+          </a>
+          <a href="mailto:akilesian424@gmail.com" class="contact-chip-link" data-cursor="[EMAIL]">
+            <span>[ EMAIL ]</span>
+            <span class="mono text-dim">akilesian424@gmail.com</span>
+          </a>
+          <a href="https://wa.me/5569993616007?text=Ol%C3%A1%20Ian,%20vi%20o%20IAN%20LAB%20e%20quero%20conversar%20sobre%20um%20projeto." target="_blank" rel="noopener noreferrer" class="contact-chip-link" data-cursor="[WHATSAPP]">
+            <span>[ WHATSAPP ]</span>
+            <span class="mono text-dim">+55 (69) 99361-6007</span>
+          </a>
+          <a href="trilha-da-carreira.html" target="_blank" class="contact-chip-link" data-cursor="[TRILHA]">
+            <span>[ TRILHA DA CARREIRA ]</span>
+            <span class="mono accent-green">16 Aulas</span>
+          </a>
+        </div>
+
+        <!-- Formulário Direto via Formspree -->
+        <div class="contact-terminal-grid">
+          <div class="contact-terminal-panel">
+            <div class="mono accent-green" style="font-size: 12px; margin-bottom: 16px;">// ENVIAR MENSAGEM DIRETA AO TERMINAL</div>
+            <form action="https://formspree.io/f/xykazjwg" method="POST" style="display:flex; flex-direction:column; gap:16px;">
+              <input type="text" name="name" placeholder="Seu nome ou organização" required style="background:var(--bg-main); border:1px solid var(--gray-border); padding:12px; color:#fff; font-family:var(--font-mono); font-size:13px; outline:none;">
+              <input type="text" name="contact" placeholder="Email ou WhatsApp para resposta" required style="background:var(--bg-main); border:1px solid var(--gray-border); padding:12px; color:#fff; font-family:var(--font-mono); font-size:13px; outline:none;">
+              <textarea name="message" rows="4" placeholder="Descreva o escopo, sistema ou desafio..." required style="background:var(--bg-main); border:1px solid var(--gray-border); padding:12px; color:#fff; font-family:var(--font-mono); font-size:13px; outline:none; resize:vertical;"></textarea>
+              <button type="submit" class="btn-lab btn-lab-primary btn-uiverse" style="align-self:flex-start;" data-cursor="[ENVIAR]" data-text="TRANSMITIR MENSAGEM →">TRANSMITIR MENSAGEM →</button>
+            </form>
+          </div>
+
+          <div class="contact-terminal-panel contact-gif-panel">
+            <img src="batXsup.gif" alt="Animação decorativa BatXsup" loading="lazy">
+          </div>
+        </div>
+
+        <div style="margin-top: 50px;">
+          <button class="scroll-top-btn" id="scroll-to-top-btn" data-cursor="[TOPO]">
+            ROLAR PARA O TOPO ↑
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ── 09. Rodapé Minimalista ────────────────────────────────────── -->
+  <footer class="lab-footer">
+    <div class="container-lab" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;">
+      <div>
+        <strong>IAN LAB</strong> © 2026 IAN AKILES — TODOS OS DIREITOS EXPERIMENTAIS RESERVADOS.
+      </div>
+      <div>
+        STATUS DO SISTEMA: <span class="accent-green">ONLINE</span> | VERSÃO 1.0 | LOCALIZAÇÃO: DIGITAL
+      </div>
+    </div>
+  </footer>
+
+  <!-- Motor Interativo do Laboratório -->
+  <script type="module" src="assets/js/ian-lab.js"></script>
+
+  <!-- Efeito MagicRings (porte vanilla JS/Canvas do componente React solicitado) -->
+  <script type="module">
+    import MagicRings from './assets/js/magic-rings.js';
+
+    new MagicRings('#magic-rings-hero', {
+      color: '#A855F7',
+      colorTwo: '#6366F1',
+      ringCount: 6,
+      speed: 1,
+      attenuation: 10,
+      lineThickness: 2,
+      baseRadius: 0.35,
+      radiusStep: 0.1,
+      scaleRate: 0.1,
+      opacity: 1,
+      blur: 0,
+      noiseAmount: 0.1,
+      rotation: 0,
+      ringGap: 1.5,
+      fadeIn: 0.7,
+      fadeOut: 0.5,
+      followMouse: false,
+      mouseInfluence: 0.2,
+      hoverScale: 1.2,
+      parallax: 0.05,
+      clickBurst: false,
+    });
+  </script>
+</body>
+</html>
