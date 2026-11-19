@@ -61,6 +61,10 @@ O objetivo é que a pessoa consiga entender um pouco de quem está por trás do 
 
 ---
 
+## Visualizar localmente
+
+Abra [`index.html`](index.html) no navegador e mantenha os recursos na estrutura do repositório. A [Trilha da Carreira](trilha-da-carreira.html) também pode ser aberta diretamente.
+
 ## 📂 Estrutura
 
 De forma simplificada:
